@@ -5,10 +5,10 @@
         .products-grid {
             width: 100%;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(22%, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
             gap: 20px;
-            @media (max-width: 600px) {
-                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); /* Ocupar todo el ancho en dispositivos móviles */
+            @media (width <= 600px) {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
             }
         }
 
@@ -23,15 +23,32 @@
             position: relative;
         }
 
-        .product-card .asd {
-            display: flex;
+        .product-card .cart-icon {
+            display: none;
             justify-content: center;
             align-items: center;
-            width: 10%;
+            width: fit-content;
+            padding: 0 .5rem;
             height: 5%;
             color: white;
-            background-color: darkgreen;
+            background-color: #3f930a;
             position: absolute;
+            z-index: 1;
+        }
+
+        .product-card .cart-icon a {
+            font-size: 1rem;
+            color: white;
+        }
+
+        .product-card:hover {
+            .cart-icon {
+                display: flex;
+            }
+        }
+
+        .product-card .cart-icon:hover {
+            cursor: pointer;
         }
 
         .product-image img {
@@ -51,13 +68,82 @@
         }
 
         .product-info > h5 > a {
-            color: forestgreen;
+            text-decoration: underline;
+            color: #2b2c34;
         }
 
         img {
             mix-blend-mode: multiply;
         }
+
+        header {
+            min-height: 92vh;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10%;
+        }
+
+        header > div {
+            width: 50%;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        header .card {
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (width > 1024px) {
+            header .card {
+                display: flex;
+            }
+
+            header h1 {
+                font-size: 4rem;
+            }
+        }
+
+        header .card > img {
+            width: 75%;
+            height: 75%;
+            object-fit: contain;
+            border-radius: 1rem;
+        }
+
+        header div > p {
+            width: 75%;
+            text-align: left;
+            word-break: break-word;
+        }
+
+        section {
+            background-color: #2b2c34;
+        }
+
+        main {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main > section > h1 {
+            padding: 5% 0 0 0;
+            color: white;
+            text-align: center;
+        }
+
+
+        main > section .products-grid {
+            padding: 5% 10% 10% 10%;
+        }
     </style>
+
 @endsection
 
 @section('main-content')
@@ -65,24 +151,38 @@
         {{Auth::user()->rut_cliente}}
     @endif
 
+    <header>
+        <div>
+            <h1>👷ARAGUN LTDA</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam culpa doloremque ducimus facere illo laudantium minus natus nostrum placeat quaerat quas reiciendis reprehenderit ullam, vel voluptas voluptate voluptates voluptatibus.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://gtg.es/wp-content/uploads/2018/07/Imagen-Empresa-Seguridad-1000x689.jpg" alt="">
+        </div>
+    </header>
+
     <main>
-        <section class="products-grid">
-            @foreach($productos as $producto)
-                <div class="product-card">
+        <section>
+            <h1>Nuestros productos</h1>
+            <div class="products-grid">
+                @foreach($productos as $producto)
+                    <div class="product-card">
 
-                    <div class="asd">
-                        <small>+</small>
-                    </div>
+                        <div class="cart-icon">
+                            <a href="#">🛒 Añadir al carrito de cotización</a>
+                        </div>
 
-                    <div class="product-image">
-                        <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
+                        <div class="product-image">
+                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
+                        </div>
+                        <div class="product-info">
+                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
+                            <h5><a href="#">Acerca del producto</a></h5>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <h5>Cono de Vial de Seguridad 28 base negra</h5>
-                        <h5><a href="#">Cotizar</a></h5>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         <section>
     </main>
 @endsection
