@@ -11,7 +11,7 @@ class Proveedor extends Model
     use HasFactory;
     protected $table = 'proveedores';
     protected $primaryKey = 'cod_proveedor';
-    protected $keyType = 'unsignedTinyInteger';
+    protected $keyType = 'integer';
     public $incrementing = false;
     public $timestamps = false;
 

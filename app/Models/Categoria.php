@@ -11,9 +11,10 @@ class Categoria extends Model
     use HasFactory;
 
     protected $table = 'categorias';
-    protected $keyType = 'unsignedTinyInteger';
+    protected $primaryKey = 'cod_categoria';
+    protected $keyType = 'integer';
 
     public function productos():HasMany {
-        return $this->hasMany(Producto::class);
+        return $this->hasMany(Producto::class, 'cod_categoria');
     }
 }
