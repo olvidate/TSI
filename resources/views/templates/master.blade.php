@@ -31,7 +31,7 @@
             align-items: center;
             padding: 0 10%;
             color: white;
-            margin-bottom: 1vw;
+            margin-bottom: 1vh;
             z-index: 2;
         }
 
