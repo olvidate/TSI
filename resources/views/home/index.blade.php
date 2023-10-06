@@ -5,10 +5,18 @@
         .products-grid {
             width: 100%;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
             gap: 20px;
-            @media (width <= 600px) {
-                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            @media (width <= 600px) and (width >= 400px) {
+                grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+            }
+
+            @media (width <= 1024px) and (width >= 600px) {
+                grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+            }
+
+            @media (width >= 1024px) {
+                grid-template-columns: repeat(auto-fill, minmax(22%, 1fr));
             }
         }
 
@@ -21,6 +29,8 @@
             border-radius: 3px;
             margin-bottom: 20px;
             position: relative;
+            max-width: 300px;
+            max-height: 400px;
         }
 
         .product-card .cart-icon {
@@ -53,6 +63,9 @@
 
         .product-image img {
             width: 100%;
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
         }
 
         .product-info {
@@ -77,7 +90,7 @@
         }
 
         header {
-            min-height: 92vh;
+            min-height: 91vh;
             background-color: white;
             display: flex;
             justify-content: center;
@@ -86,7 +99,17 @@
         }
 
         header > div {
-            width: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        header div > p {
+            width: 75%;
+            text-align: center;
+            word-break: break-word;
         }
 
         header h1 {
@@ -100,6 +123,16 @@
         }
 
         @media (width > 1024px) {
+
+            header > div {
+                display: block;
+                width: 50%;
+            }
+
+            header > div p {
+                text-align: left;
+            }
+
             header .card {
                 display: flex;
             }
@@ -114,12 +147,6 @@
             height: 75%;
             object-fit: contain;
             border-radius: 1rem;
-        }
-
-        header div > p {
-            width: 75%;
-            text-align: left;
-            word-break: break-word;
         }
 
         section {
@@ -147,13 +174,13 @@
 @endsection
 
 @section('main-content')
-    @if(!empty(Auth::user()->rut_cliente))
-        {{Auth::user()->rut_cliente}}
-    @endif
+{{--    @if(!empty(Auth::user()->rut_cliente))--}}
+{{--        Usuario logueado!--}}
+{{--    @endif--}}
 
     <header>
         <div>
-            <h1>👷ARAGUN LTDA</h1>
+            <h1>👷<br>ARAGUN LTDA</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam culpa doloremque ducimus facere illo laudantium minus natus nostrum placeat quaerat quas reiciendis reprehenderit ullam, vel voluptas voluptate voluptates voluptatibus.</p>
         </div>
 
@@ -164,9 +191,9 @@
 
     <main>
         <section>
-            <h1>Nuestros productos</h1>
+            <h1>Nuestros Productos</h1>
             <div class="products-grid">
-                @foreach($productos as $producto)
+{{--                @foreach($productos as $producto)--}}
                     <div class="product-card">
 
                         <div class="cart-icon">
@@ -181,7 +208,66 @@
                             <h5><a href="#">Acerca del producto</a></h5>
                         </div>
                     </div>
-                @endforeach
+{{--                @endforeach--}}
+                    <div class="product-card">
+
+                        <div class="cart-icon">
+                            <a href="#">🛒 Añadir al carrito de cotización</a>
+                        </div>
+
+                        <div class="product-image">
+                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
+                        </div>
+                        <div class="product-info">
+                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
+                            <h5><a href="#">Acerca del producto</a></h5>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+
+                        <div class="cart-icon">
+                            <a href="#">🛒 Añadir al carrito de cotización</a>
+                        </div>
+
+                        <div class="product-image">
+                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
+                        </div>
+                        <div class="product-info">
+                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
+                            <h5><a href="#">Acerca del producto</a></h5>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+
+                        <div class="cart-icon">
+                            <a href="#">🛒 Añadir al carrito de cotización</a>
+                        </div>
+
+                        <div class="product-image">
+                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
+                        </div>
+                        <div class="product-info">
+                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
+                            <h5><a href="#">Acerca del producto</a></h5>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+
+                        <div class="cart-icon">
+                            <a href="#">🛒 Añadir al carrito de cotización</a>
+                        </div>
+
+                        <div class="product-image">
+                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
+                        </div>
+                        <div class="product-info">
+                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
+                            <h5><a href="#">Acerca del producto</a></h5>
+                        </div>
+                    </div>
             </div>
         <section>
     </main>
