@@ -10,6 +10,7 @@
         }
 
         section {
+            position: relative;
             width: 100%;
             height: 50%;
             display: flex;
@@ -90,8 +91,21 @@
             font-size: 1rem;
         }
 
-        section > a span:hover {
-            color: #4a5568;
+        ::selection {
+            background: rgba(1,1,1,0.5);
+            color: white;
+        }
+
+        #error {
+            position: absolute;
+            height: fit-content;
+            top: 0;
+            width: 50%;
+            border-radius: 1rem;
+            color: white;
+            font-size: .9rem;
+            padding: .4rem;
+            background-color: #a10000;
         }
     </style>
 @endsection
@@ -101,6 +115,15 @@
         <section>
             <h1>🔓 Inicio de sesión</h1>
             <hr>
+            @if($errors->any())
+                <div id="error">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="POST" action="{{route('cliente.login')}}">
                 @method('POST')
                 @csrf

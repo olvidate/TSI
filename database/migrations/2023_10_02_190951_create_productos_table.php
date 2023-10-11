@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->integer('impuesto_adicional');
             $table->string('nombre_marca', 50);
-            $table->unsignedTinyInteger('stock');
+//            $table->unsignedTinyInteger('stock');
             $table->integer('id_talla');
             $table->integer('id_color');
             $table->foreign('cod_categoria')->references('cod_categoria')->on('categorias');

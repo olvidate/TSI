@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
@@ -22,3 +23,11 @@ Route::get('/register', [HomeController::class, 'register'])->name('home.registe
 Route::post('/register', [ClienteController::class, 'store'])->name('cliente.store');
 Route::post('/login', [ClienteController::class, 'login'])->name('cliente.login');
 Route::get('/logout', [ClienteController::class, 'logout'])->name('cliente.logout');
+
+Route::get('/productos', [ProductosController::class, 'index'])->name('productos.index');
+Route::get('/productos/create', [ProductosController::class, 'create'])->name('productos.create');
+Route::get('/productos/{producto}/edit', [ProductosController::class, 'edit'])->name('productos.edit');
+
+Route::delete('/productos/{producto}', [ProductosController::class, 'destroy'])->name('productos.destroy');
+Route::post('/productos', [ProductosController::class, 'store'])->name('productos.store');
+Route::put('/productos/{producto}', [ProductosController::class, 'update'])->name('productos.update');

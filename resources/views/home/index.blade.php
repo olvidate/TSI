@@ -63,8 +63,8 @@
 
         .product-image img {
             width: 100%;
+            height: 300px;
             max-width: 300px;
-            max-height: 300px;
             object-fit: contain;
         }
 
@@ -193,7 +193,7 @@
         <section>
             <h1>Nuestros Productos</h1>
             <div class="products-grid">
-{{--                @foreach($productos as $producto)--}}
+                @foreach($productos as $producto)
                     <div class="product-card">
 
                         <div class="cart-icon">
@@ -201,73 +201,22 @@
                         </div>
 
                         <div class="product-image">
-                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
+                            @if (file_exists(public_path('imagenes/P_' . $producto->cod_producto . '.png')))
+                                <img src="{{asset('imagenes/P_' . $producto->cod_producto . '.png')}}">
+                            @elseif(file_exists(public_path('imagenes/P_' . $producto->cod_producto . '.jpg')))
+                                <img src="{{asset('imagenes/P_' . $producto->cod_producto . '.jpg')}}">
+                            @elseif(file_exists(public_path('imagenes/P_' . $producto->cod_producto . '.gif')))
+                                <img src="{{asset('imagenes/P_' . $producto->cod_producto . '.gif')}}">
+                            @else
+                                <img src="https://th.bing.com/th/id/OIP.PbvnSZi33pv6KoKOZz-E_wHaHa?pid=ImgDet&rs=1" alt="">
+                            @endif
                         </div>
                         <div class="product-info">
-                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
+                            <h5>{{$producto->nombre}}</h5>
                             <h5><a href="#">Acerca del producto</a></h5>
                         </div>
                     </div>
-{{--                @endforeach--}}
-                    <div class="product-card">
-
-                        <div class="cart-icon">
-                            <a href="#">🛒 Añadir al carrito de cotización</a>
-                        </div>
-
-                        <div class="product-image">
-                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
-                        </div>
-                        <div class="product-info">
-                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
-                            <h5><a href="#">Acerca del producto</a></h5>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-
-                        <div class="cart-icon">
-                            <a href="#">🛒 Añadir al carrito de cotización</a>
-                        </div>
-
-                        <div class="product-image">
-                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
-                        </div>
-                        <div class="product-info">
-                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
-                            <h5><a href="#">Acerca del producto</a></h5>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-
-                        <div class="cart-icon">
-                            <a href="#">🛒 Añadir al carrito de cotización</a>
-                        </div>
-
-                        <div class="product-image">
-                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
-                        </div>
-                        <div class="product-info">
-                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
-                            <h5><a href="#">Acerca del producto</a></h5>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-
-                        <div class="cart-icon">
-                            <a href="#">🛒 Añadir al carrito de cotización</a>
-                        </div>
-
-                        <div class="product-image">
-                            <img src="https://www.terra-ws.cl/26-home_default/cono-de-senalizacion-vial-28-base-negra.jpg">
-                        </div>
-                        <div class="product-info">
-                            <h5>Cono de Vial de Seguridad 28 base negra</h5>
-                            <h5><a href="#">Acerca del producto</a></h5>
-                        </div>
-                    </div>
+                @endforeach
             </div>
         <section>
     </main>

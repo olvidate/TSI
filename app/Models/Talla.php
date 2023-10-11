@@ -13,6 +13,6 @@ class Talla extends Model
     public $timestamps = 'false';
 
     public function productos():HasMany {
-        return $this->hasMany(Producto::class);
+        return $this->hasMany(Producto::class, 'id');
     }
 }

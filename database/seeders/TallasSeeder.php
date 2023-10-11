@@ -14,6 +14,7 @@ class TallasSeeder extends Seeder
     public function run(): void
     {
         DB::table('tallas')->insert([
+            ['nombre'=>'No posee'],
             ['nombre'=>'XS'],
             ['nombre'=>'S'],
             ['nombre'=>'M'],

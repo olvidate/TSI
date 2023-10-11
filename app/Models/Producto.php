@@ -20,18 +20,20 @@ class Producto extends Model
     public $timestamps = false;
 
     public function categoria():BelongsTo {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Categoria::class, 'cod_categoria');
     }
 
     public function proveedor():BelongsTo {
         return $this->belongsTo(Proveedor::class);
     }
 
-    public function tallas():BelongsToMany {
-        return $this->belongsToMany(Talla::class);
+    public function tallas(): BelongsTo
+    {
+        return $this->belongsTo(Talla::class, 'id_talla');
     }
 
-    public function colores():BelongsToMany {
-        return $this->belongsToMany(Talla::class);
+    public function colores(): BelongsTo
+    {
+        return $this->belongsTo(Color::class, 'id_color');
     }
 }

@@ -5,7 +5,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">--}}
     <title>🛠️ Aragun LTDA</title>
 
     <style>
@@ -67,6 +66,30 @@
             font-size: 1.6rem;
         }
 
+        .dropdown {
+            display: block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            width: 100%;
+            height: fit-content();
+            position: absolute;
+            background-color: black;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: white;
+        }
+
+        nav a {
+            text-transform: uppercase;
+        }
     </style>
 
     @yield('head-extras')
@@ -76,7 +99,28 @@
         <h1><a href="{{route('home.index')}}">🛠️ARAGUN</a></h1>
 
         <ul>
-            <li><a href="{{route('home.login')}}">ÚNETE</a></li>
+            @if(!empty(Auth::user()))
+                <li>
+                    <div class="dropdown">
+                        <a href="#">PANEL DE CONTROL</a>
+                        <ul class="dropdown-content">
+                            @if(Auth::user()->rol_id == 2)
+                                <li>
+                                    <a href="{{route('productos.index')}}">Administración</a>
+                                </li>
+                            @endif
+                            <li>
+                                <a href="#">Mis cotizaciones</a>
+                            </li>
+                            <li>
+                                <a href="{{route('cliente.logout')}}">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @else
+                <li><a href="{{route('home.login')}}">ÚNETE</a></li>
+            @endif
         </ul>
     </nav>
 

@@ -31,7 +31,7 @@ class ClientesSeeder extends Seeder
                 'rut_cliente'=>77239234,
                 'email' => 'admin@google.com',
                 'password' => Hash::make('google'),
-                'rol_id' => 1,
+                'rol_id' => 2,
                 'nombre' => null,
                 'apellido' => null,
                 'direccion' => null,
