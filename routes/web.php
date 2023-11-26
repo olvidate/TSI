@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,6 @@ Route::get('/productos/{producto}/edit', [ProductosController::class, 'edit'])->
 Route::delete('/productos/{producto}', [ProductosController::class, 'destroy'])->name('productos.destroy');
 Route::post('/productos', [ProductosController::class, 'store'])->name('productos.store');
 Route::put('/productos/{producto}', [ProductosController::class, 'update'])->name('productos.update');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart/add', [CartController::class, 'create'])->name('cart.create');

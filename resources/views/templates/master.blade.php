@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>🛠️ Aragun LTDA</title>
 
     <style>
@@ -74,7 +75,7 @@
         .dropdown-content {
             display: none;
             width: 100%;
-            height: fit-content();
+            height: fit-content;
             position: absolute;
             background-color: black;
         }
@@ -90,7 +91,21 @@
         nav a {
             text-transform: uppercase;
         }
+
+        .badge {
+            background-color: #6394F8;
+            border-radius: 10px;
+            color: white;
+            display: inline-block;
+            font-size: 12px;
+            line-height: 1;
+            padding: .2rem .5rem;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
     </style>
+
 
     @yield('head-extras')
 </head>
@@ -99,6 +114,7 @@
         <h1><a href="{{route('home.index')}}">🛠️ARAGUN</a></h1>
 
         <ul>
+            <li><a href="#" id="cart"><i class="fa fa-shopping-cart"></i> <span class="badge">{{Cart::content()->count()}}</span></a></li>
             @if(!empty(Auth::user()))
                 <li>
                     <div class="dropdown">
