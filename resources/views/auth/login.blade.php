@@ -73,7 +73,7 @@
 
         }
 
-        button {
+        #button {
             margin-top: .5rem;
             width: 80%;
             padding: 0.6rem 0.5rem;
@@ -134,7 +134,7 @@
                 <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required readonly onfocus="this.removeAttribute('readonly')">
 
                 <!-- Button -->
-                <button type="submit">🔑 Iniciar sesión</button>
+                <button type="submit" id="button">🔑 Iniciar sesión</button>
 
             </form>
             <a href="{{route('home.register')}}">No tienes cuenta? <span>Regístrate☝️</span></a>

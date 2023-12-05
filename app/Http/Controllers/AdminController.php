@@ -8,6 +8,7 @@ use App\Models\Color;
 use App\Models\Cotizacion;
 use App\Models\DetalleCotizacion;
 use App\Models\Producto;
+use App\Models\Rol;
 use App\Models\Talla;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -50,8 +51,22 @@ class AdminController extends Controller
             return redirect()->route('home.index');
         }
 
+        $roles = Rol::all();
         $clientes = Cliente::all();
-        return view('admin/clientes.index', compact('clientes'));
+        return view('admin/clientes.index', compact([
+            'clientes',
+            'roles'
+        ]));
+    }
+
+    public function categorias_index() {
+        if(Gate::denies('admin')) {
+            return redirect()->route('home.index');
+        }
+
+        $categorias = Categoria::all();
+
+        return view('admin/categorias.index', compact('categorias'));
     }
 
 //    Cotizaciones

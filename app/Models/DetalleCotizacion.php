@@ -11,7 +11,7 @@ class DetalleCotizacion extends Model
 
     protected $table = 'detalle_cotizacion';
     protected $primaryKey = ['id_cotizacion', 'rut_cliente', 'cod_producto']; // Clave primaria compuesta
-    public $incrementing = false; // No se incrementan automáticamente
+    public $incrementing = false;
 
     protected $fillable = [
         'id_cotizacion',

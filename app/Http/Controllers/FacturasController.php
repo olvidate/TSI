@@ -13,9 +13,8 @@ use Illuminate\Http\Request;
 class FacturasController extends Controller
 {
     public function generatePdf($id) {
-        $factura = Factura::find($id);
+        $factura = Factura::where('id_cotizacion', $id)->first();
         $detalles_factura = $factura->detallesFactura;
-        dd($factura);
         $pdf = PDF::loadView('pdf.factura', [
             'factura' => $factura,
             'detalles' => $detalles_factura,
@@ -62,6 +61,6 @@ class FacturasController extends Controller
             }
         }
 
-        return redirect()->route('factura.view', $factura->id);
+        return redirect()->route('cotizaciones.index');
     }
 }

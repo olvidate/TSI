@@ -57,6 +57,7 @@
             border: .1rem solid rgb(0, 0, 0);
             border-radius: .4rem;
             padding: 0 .5rem;
+            font-weight: normal !important;
         }
 
         hr {
@@ -73,7 +74,7 @@
 
         }
 
-        button {
+        #button {
             margin-top: .5rem;
             width: 80%;
             padding: 0.6rem 0.5rem;
@@ -176,6 +177,7 @@
             border: .1rem solid rgb(0, 0, 0);
             border-radius: .4rem;
             padding: 0 .5rem;
+            font-weight: normal !important;
         }
 
         .disable {
@@ -260,7 +262,7 @@
                     <input type="text" id="holding_empresa" name="holding_empresa" placeholder="Ingrese el holding de la empresa">
                 </div>
                 <!-- Button -->
-                <button type="submit">Registrarse</button>
+                <button type="submit" id="button">Registrarse</button>
 
             </form>
             <a href="{{route('home.login')}}">Tienes cuenta? <span>Inicia sesión🔑🔓</span></a>

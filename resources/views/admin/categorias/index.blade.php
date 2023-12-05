@@ -2,16 +2,6 @@
 
 @section('head-extras')
     <style>
-
-        main span > a {
-            margin-left: .5rem;
-            color: white;
-            padding: .5rem;
-            font-size: 1rem;
-            background-color: #00937b;
-            border-radius: 2rem;
-        }
-
         .modal {
             position: fixed;
             width: 100vw;
@@ -60,7 +50,7 @@
             transition-delay: 0s;
         }
 
-        form {
+        .modal form {
             width: 100%;
             height: fit-content;
             /*@media (height > 700px) {*/
@@ -97,6 +87,9 @@
         form > textarea {
             width: 80%;
             font-weight: normal !important;
+            border-radius: .4rem;
+            padding: .6rem;
+            border: .1rem solid rgb(0, 0, 0);
         }
 
         hr {
@@ -112,7 +105,7 @@
             color: black;
         }
 
-        button {
+        .modal form > button {
             margin-top: .5rem;
             width: 80%;
             padding: 0.6rem 0.5rem;
@@ -199,31 +192,10 @@
             margin-inline-start: calc(1.125em - 4px);
         }
 
-        form > strong {
-            width: 100%;
-            background-color: #f8d7da;
-            color: #782736;
-            border: .1rem solid #f6d1d5;
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
+        a {
+            cursor: pointer;
         }
 
-        #modify-price {
-            padding: .35rem;
-            background-color: #ada300;
-            color: white;
-            border-radius: 1rem;
-        }
-
-        #form-send {
-            width: 15%;
-        }
-
-        #form-send button {
-            font-weight: normal;
-            border-radius: 2rem;
-        }
     </style>
 
     <script>
@@ -253,19 +225,20 @@
 @section('main-content')
     <main class="flex-grow p-6">
         <div class="flex justify-between items-center mb-4">
-            <h1 class="text-lg font-medium">Cotizacion - N{{$cotizacion->id}}</h1>
-            <p>{{$cotizacion->cliente->direccion}}<span><a href="#" data-modal="modificar-envio-{{$cotizacion->id}}">Establecer precio de envio</a></span></p>
-            <form action="{{route('cotizaciones.sendUpdate', $cotizacion->id)}}" id="form-send" method="POST">
-                @method('PUT')
-                @csrf
-                <button type="submit">Enviar respuesta</button>
-            </form>
-            <div class="modal" id="modificar-envio-{{$cotizacion->id}}">
+            <h1 class="text-lg font-medium">Categorias</h1>
+            <a data-modal="crear-categoria"
+               class="justify-center font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-2 py-1 bg-green-800 text-white rounded-lg flex items-center space-x-2 text-sm"
+               type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="1em" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                <span>Crear categoria</span>
+            </a>
+
+            <div class="modal" id="crear-categoria">
                 <div class="modal-bg modal-exit"></div>
                 <div class="modal-container">
-                    <form action="{{route('cotizaciones.update', $cotizacion->id)}}" method="post">
+                    <form action="{{route('categoria.store')}}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
                         @if($errors->any())
                             <strong>
                                 @foreach($errors->all() as $error)
@@ -273,9 +246,13 @@
                                 @endforeach
                             </strong>
                         @endif
-                        <label for="precio_envio">Establecer precio de envio</label>
-                        <input type="number" id="precio_envio" name="precio_envio">
-                        <button type="submit">Modificar</button>
+                        <label for="cod_categoria">Codigo</label>
+                        <input type="number" name="cod_categoria" id="cod_categoria">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre">
+                        <label for="tlf">Descripción</label>
+                        <textarea type="text" id="descripcion" name="descripcion"></textarea>
+                        <button type="submit">Crear categoría</button>
                     </form>
                 </div>
             </div>
@@ -285,48 +262,48 @@
                 <thead class="[&amp;_tr]:border-b">
                 <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                     <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                        Imagen
+                        Código
                     </th>
                     <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                         Nombre
                     </th>
                     <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                        Cantidad
+                        Descripción
                     </th>
-
-                    <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                        Precio
-                    </th>
-
                     <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                         Acciones
                     </th>
-
+                    {{--                    <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"></th>--}}
                 </tr>
                 </thead>
                 <tbody class="[&amp;_tr:last-child]:border-0">
-                @foreach($detalles as $detalle)
+                @foreach($categorias as $categoria)
                     <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 w-20">
-                            @if (file_exists(public_path('imagenes/P_' . $detalle->cod_producto . '.png')))
-                                <img src="{{asset('imagenes/P_' . $detalle->cod_producto . '.png')}}">
-                            @elseif(file_exists(public_path('imagenes/P_' . $detalle->cod_producto . '.jpg')))
-                                <img src="{{asset('imagenes/P_' . $detalle->cod_producto . '.jpg')}}">
-                            @elseif(file_exists(public_path('imagenes/P_' . $detalle->cod_producto . '.gif')))
-                                <img src="{{asset('imagenes/P_' . $detalle->cod_producto . '.gif')}}">
-                            @endif
-                        </td>
-                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$detalle->producto->nombre}}</td>
-                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                            {{$detalle->cantidad_producto}}
-                        </td>
-                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                            {{$detalle->precio_producto}}
-                            <a id="modify-price" href="#" data-modal="modificar-producto-{{$detalle->producto->cod_producto}}">Modificar Precio</a>
-                            <div class="modal" id="modificar-producto-{{$detalle->producto->cod_producto}}">
+                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$categoria->cod_categoria}}</td>
+                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$categoria->nombre}}</td>
+                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$categoria->descripcion}}</td>
+
+                        <td class="p-4 flex gap-4 align-middle [&:has([role=checkbox])]:pr-0">
+                            <a href="#" data-modal="modificar-categoria-{{$categoria->cod_categoria}}"
+                               class="justify-center font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-1 bg-yellow-400 text-white rounded-lg flex items-center space-x-2 text-sm"
+                               type="submit">
+                                <svg fill="black" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/></svg>
+                            </a>
+
+                            <form action="{{ route('categoria.destroy', $categoria->cod_categoria) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button
+                                    class="justify-center font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-1 bg-red-800 text-white rounded-lg flex items-center space-x-2 text-sm"
+                                    type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                                </button>
+                            </form>
+
+                            <div class="modal" id="modificar-categoria-{{$categoria->cod_categoria}}">
                                 <div class="modal-bg modal-exit"></div>
                                 <div class="modal-container">
-                                    <form action="{{route('cotizaciones.updateDetalle', $cotizacion->id)}}" method="POST">
+                                    <form action="{{route('categoria.update', $categoria->cod_categoria)}}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         @if($errors->any())
@@ -336,10 +313,11 @@
                                                 @endforeach
                                             </strong>
                                         @endif
-                                        <label for="precio">Establecer precio de producto {{$detalle->producto->nombre}}</label>
-                                        <input type="number" id="precio" name="precio">
-                                        <input type="hidden" name="cod_producto" value="{{$detalle->producto->cod_producto}}">
-                                        <button type="submit">Establecer</button>
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" id="nombre" name="nombre" value="{{$categoria->nombre}}">
+                                        <label for="tlf">Descripción</label>
+                                        <textarea type="text" id="descripcion" name="descripcion">{{$categoria->descripcion}}</textarea>
+                                        <button type="submit">Actualizar</button>
                                     </form>
                                 </div>
                             </div>

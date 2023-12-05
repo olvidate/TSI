@@ -18,6 +18,14 @@ class Cliente extends Authenticable
     public $incrementing = false;
     public $timestamps = false;
 
+    public $fillable = [
+        'rol_id',
+        'nombre',
+        'apellido',
+        'direccion',
+        'num_tlf',
+    ];
+
     public function rol():BelongsTo
     {
         return $this->belongsTo(Rol::class);

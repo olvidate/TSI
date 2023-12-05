@@ -12,7 +12,11 @@
             justify-content: center;
         }
 
-        button {
+        main h2 {
+            font-size: 1.5rem !important;
+        }
+
+        main > button {
             background: none;
             color: inherit;
             border: none;
@@ -23,18 +27,18 @@
         }
 
 
-        section {
+        main > section {
             width: 60%;
         }
 
-        .separator {
+        main .separator {
             width: 100%;
             display: flex;
             justify-content: space-between;
             gap: 5rem;
         }
 
-        .list-tile-container {
+        main .list-tile-container {
             width: 100%;
             /*background-color: #718096;*/
             display: flex;
@@ -42,7 +46,7 @@
             gap: 1rem;
         }
 
-        .summary-container {
+        main .summary-container {
             width: 60%;
             padding: 1rem;
             display: flex;
@@ -50,7 +54,7 @@
             gap: 1rem;
         }
 
-        .summary-container a {
+        main .summary-container a {
             width: 100%;
             background-color: #6394F8;
             padding: .5rem 1rem;
@@ -59,47 +63,47 @@
             color: white;
         }
 
-        .summary-container a:hover {
+        main .summary-container a:hover {
             cursor: pointer;
             color: #383838;
         }
 
-        .list-tile {
+        main .list-tile {
             width: 100%;
             padding: 1rem;
             background-color: #b9b9b9;
             border-radius: 2rem;
         }
 
-        .tile-separator {
+        main .tile-separator {
             display: flex;
         }
 
-        .list-tile img {
+        main .list-tile img {
             min-width: 50px;
             width: 15%;
             height: 100%;
         }
 
-        .tile-item-info {
+        main .tile-item-info {
             display: flex;
             width: 100%;
             flex-direction: row;
             justify-content: space-between;
         }
 
-        .tile-item-info > div {
+        main .tile-item-info > div {
             padding: 1rem;
         }
 
-        .tile-item-data {
+        main .tile-item-data {
             width: 75%;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .options {
+        main .options {
             width: 25%;
             display: flex;
             justify-content: center;
@@ -108,12 +112,12 @@
             color: black;
         }
 
-        .list-tile a {
+        main .list-tile a {
             color: black;
             width: fit-content;
         }
 
-        .options a {
+        main .options a {
             background-color: #797979;
             min-width: 30px;
             width: 2rem;
@@ -127,11 +131,11 @@
             align-items: center;
         }
 
-        img {
+        main img {
             mix-blend-mode: multiply;
         }
 
-        p > a {
+        main p > a {
             color: #6394F8;
             text-decoration: #6394F8 wavy underline;
         }
@@ -184,7 +188,7 @@
             transition-delay: 0s;
         }
 
-        form {
+        main form {
             width: 100%;
             height: fit-content;
             /*@media (height > 700px) {*/
@@ -197,7 +201,7 @@
             gap: .5rem;
         }
 
-        label {
+        main label {
             width: 80%;
             font-size: 1.1rem;
             font-weight: normal;
@@ -205,7 +209,7 @@
             text-align: left;
         }
 
-        form > input {
+        main form > input {
             width: 80%;
             border: .1rem solid rgb(0, 0, 0);
             border-radius: .4rem;
@@ -213,17 +217,17 @@
             font-weight: normal !important;
         }
 
-        form > select {
+        main form > select {
             width: 80%;
             font-weight: normal !important;
         }
 
-        form > textarea {
+        main form > textarea {
             width: 80%;
             font-weight: normal !important;
         }
 
-        hr {
+        main hr {
             width: 80%;
             height: .5vh;
             background-color: #383838;
@@ -231,12 +235,12 @@
             border-radius: 10px;
         }
 
-        ::placeholder {
+        main ::placeholder {
             font-size: .9rem;
             color: black;
         }
 
-        button {
+        main button {
             margin-top: .5rem;
             width: 80%;
             padding: 0.6rem 0.5rem;
@@ -248,13 +252,13 @@
             color: white;
         }
 
-        section > a {
+        main section > a {
             text-decoration: underline;
             color: #2b2c34;
             font-size: 1rem;
         }
 
-        ::selection {
+        main ::selection {
             background: rgba(1,1,1,0.5);
             color: white;
         }
@@ -359,7 +363,6 @@
 @endsection
 
 @section('main-content')
-
     <main>
         <section>
             <div class="separator">
@@ -431,4 +434,5 @@
             </div>
         </section>
     </main>
+
 @endsection

@@ -24,18 +24,20 @@ class CartController extends Controller
 
         Cart::add($producto->cod_producto, $producto->nombre, 1, 1000);
 
-        return redirect()->back()->with("success", 'Item agregado: ' . $producto->nombre);
+        notify()->success('Añadiste el producto ' . $producto->nombre . ' al carrito', 'Nuevo producto agregado');
+        return redirect()->back();
     }
 
     public function remove($rowId) {
         Cart::remove($rowId);
-        return redirect()->back()->with('success', 'Producto eliminado');
+        return redirect()->back();
     }
 
     public function increment($id) {
         $item = Cart::content()->where("rowId", $id)->first();
         Cart::update($id, ["qty"=>$item->qty+1]);
-        return back()->with('success', 'Agregaste una unidad');
+        notify()->success('Añadiste una unidad', 'Producto aumentado');
+        return redirect()->back();
     }
 
     public function decrement($id) {
@@ -44,7 +46,8 @@ class CartController extends Controller
            return redirect()->route('cart.index');
         }
         Cart::update($id, ["qty"=>$item->qty-1]);
-        return back()->with('success', 'Removiste una unidad');
+        notify()->error('Removiste una unidad', 'Producto disminuido');
+        return redirect()->back();
     }
 
     public function store(Request $request) {

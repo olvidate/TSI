@@ -13,6 +13,12 @@ class Categoria extends Model
     protected $table = 'categorias';
     protected $primaryKey = 'cod_categoria';
     protected $keyType = 'integer';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'nombre',
+        'descripcion'
+    ];
 
     public function productos():HasMany {
         return $this->hasMany(Producto::class, 'cod_categoria');

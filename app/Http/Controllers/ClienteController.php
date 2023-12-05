@@ -53,13 +53,13 @@ class ClienteController extends Controller
         $cliente->password = Hash::make($req->password);
         $cliente->rol_id = $req->rol_id ?? 1;
         if($req->switch == 'on') {
-            if(strlen($cliente->nombre_empresa) < 10) {
+            if(strlen($req->nombre_empresa) < 10) {
                 return back()->withErrors([
                     'nombre_empresa' => 'Mínimo 10 caracteres para el nombre de empresa',
                 ]);
             }
-            $cliente->nombre_empresa = $req->nombreEmpresa;
-            $cliente->holding_empresa = $req->holding;
+            $cliente->nombre_empresa = $req->nombre_empresa;
+            $cliente->holding_empresa = $req->holding_empresa;
         } elseif ($req->switch == null) {
 
             if(strlen($req->firstname) < 4) {
@@ -80,5 +80,11 @@ class ClienteController extends Controller
         }
         $cliente->save();
         return redirect()->route('home.index');
+    }
+
+    public function update(Request $req, $id) {
+        $cliente = Cliente::find($id);
+        $cliente->update(['rol_id'=>$req->rol_id, 'direccion'=>$req->direccion, 'num_tlf'=>$req->tlf]);
+        return redirect()->back();
     }
 }

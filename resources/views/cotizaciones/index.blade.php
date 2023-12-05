@@ -67,7 +67,7 @@
             <div class="list-container">
                 <div class="list-item">
                     <div>
-                        <h2>
+                        <h2 style="font-size: 1.6rem">
                             Cotización Nº{{$cotizacion->id}}
                         </h2>
                         <time datetime="{{$cotizacion->created_at}}">{{$carbon::parse($cotizacion->created_at)->locale('es_ES')->diffForHumans()}}</time>

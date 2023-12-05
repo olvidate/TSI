@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         \Barryvdh\DomPDF\ServiceProvider::class,
+        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
     ])->toArray(),
 
     /*

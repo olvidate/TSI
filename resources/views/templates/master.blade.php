@@ -6,8 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{--    @notifyCss--}}
     <title>🛠️ Aragun LTDA</title>
-
     <style>
 
 
@@ -114,6 +114,10 @@
             vertical-align: middle;
             white-space: nowrap;
         }
+
+        div .pointer-events-auto {
+            margin-top: 4rem;
+        }
     </style>
 
 
@@ -150,9 +154,12 @@
         </ul>
     </nav>
 
+
+    @include('notify::components.notify')
     @yield('main-content')
 
     @yield('script-ref')
     @yield('script-extras')
+    @notifyJs
 </body>
 </html>
