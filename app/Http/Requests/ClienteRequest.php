@@ -27,4 +27,19 @@ class ClienteRequest extends FormRequest
             'rut' => 'required',
         ];
     }
+
+    public function messages():array
+    {
+        //'campo.regla'=>'mensaje'
+        return [
+            'email.required'=>'Necesitas un email',
+            'email.unique'=>'Este email está en uso',
+            'email.min'=>'Mínimo 10 caractéres para el email',
+            'email.max'=>'Máximo 50 caractéres para el email',
+            'password.requrired'=>'Necesitas una contraseña para registrarte',
+            'password.min'=>'Mínimo 6 caractéres para la contraseña',
+            'password.max'=>'Máximo 20 caractéres para la contraseña',
+            'rut.required'=>'Debes indicar tu RUT',
+        ];
+    }
 }

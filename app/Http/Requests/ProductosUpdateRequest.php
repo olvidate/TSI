@@ -31,4 +31,27 @@ class ProductosUpdateRequest extends FormRequest
             'foto' => 'bail|mimes:jpeg,png,jpg,gif|nullable',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'cod_categoria.required' => 'El campo de categoría es obligatorio.',
+            'cod_categoria.exists' => 'La categoría seleccionada no es válida.',
+            'nombre.required' => 'El campo de nombre es obligatorio.',
+            'nombre.min' => 'El nombre debe tener al menos :min caracteres.',
+            'nombre.max' => 'El nombre no puede tener más de :max caracteres.',
+            'nombre.string' => 'El nombre debe ser una cadena de texto.',
+            'descripcion.required' => 'El campo de descripción es obligatorio.',
+            'descripcion.min' => 'La descripción debe tener al menos :min caracteres.',
+            'marca.required' => 'El campo de marca es obligatorio.',
+            'marca.string' => 'La marca debe ser una cadena de texto.',
+            'marca.min' => 'La marca debe tener al menos :min caracteres.',
+            'marca.max' => 'La marca no puede tener más de :max caracteres.',
+            'id_talla.required' => 'El campo de talla es obligatorio.',
+            'id_talla.exists' => 'La talla seleccionada no es válida.',
+            'id_color.required' => 'El campo de color es obligatorio.',
+            'id_color.exists' => 'El color seleccionado no es válido.',
+            'foto.mimes' => 'El formato de la foto no es válido. Se admiten archivos de tipo: :values.',
+        ];
+    }
 }

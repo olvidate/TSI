@@ -69,6 +69,26 @@ class AdminController extends Controller
         return view('admin/categorias.index', compact('categorias'));
     }
 
+    public function tallas_index() {
+        if(Gate::denies('admin')) {
+            return redirect()->route('home.index');
+        }
+
+        $tallas = Talla::all();
+
+        return view('admin/tallas.index', compact('tallas'));
+    }
+
+    public function colores_index() {
+        if(Gate::denies('admin')) {
+            return redirect()->route('home.index');
+        }
+
+        $colores = Color::all();
+
+        return view('admin/colores.index', compact('colores'));
+    }
+
 //    Cotizaciones
     public function cotizaciones_index() {
         if(Gate::denies('admin')) {

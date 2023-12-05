@@ -156,14 +156,19 @@
             gap: 1rem;
         }
 
-        .product-info-grid a {
+        .product-info-grid form {
+            width:100%;
+        }
+
+        /* .product-info-grid a {
             background-color: #2d3748;
             color: white;
             padding: .2rem;
             border-radius: 1rem;
-        }
+        } */
 
         .product-info-grid button {
+            width: 100%;
             background-color: #3f930a;
             color: white;
             padding: .2rem;
@@ -249,9 +254,9 @@
                             @endif
                         </div>
                         <div class="product-info">
-                            <h5>{{$producto->nombre}}</h5>
+                            <h5>{{$producto->nombre}} @if($producto->tallas->nombre != 'No posee') - {{$producto->tallas->nombre}} @endif</h5>
                             <div class="product-info-grid">
-                                <a href="#">Acerca del producto</a>
+                                <!-- <a href="#">Acerca del producto</a> -->
                                 <form action="{{route('cart.add')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$producto->cod_producto}}">

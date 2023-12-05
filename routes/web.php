@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\TallasController;
+use App\Http\Controllers\ColoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,10 @@ Route::get('/admin/cotizaciones', [AdminController::class, 'cotizaciones_index']
 Route::get('/admin/cotizaciones/reply/{id}', [AdminController::class, 'cotizaciones_reply'])->name('admin.cotizaciones.reply');
 
 Route::get('/admin/clientes', [AdminController::class, 'clientes_index'])->name('admin.clientes.index');
+
 Route::get('/admin/categorias', [AdminController::class, 'categorias_index'])->name('admin.categorias.index');
+Route::get('/admin/tallas', [AdminController::class, 'tallas_index'])->name('admin.tallas.index');
+Route::get('/admin/colores', [AdminController::class, 'colores_index'])->name('admin.colores.index');
 
 Route::get('/productos', [ProductosController::class, 'index'])->name('productos.index');
 Route::get('/productos/categorias/{categoria}', [ProductosController::class, 'category'])->name('category');
@@ -65,3 +70,11 @@ Route::get('/factura/download/{id}', [FacturasController::class, 'generatePdf'])
 Route::put('/categoria/update/{id}', [CategoriaController::class, 'update'])->name('categoria.update');
 Route::post('/categoria', [CategoriaController::class, 'store'])->name('categoria.store');
 Route::delete('/categoria/{id}', [CategoriaController::class, 'destroy'])->name('categoria.destroy');
+
+Route::put('/talla/update/{id}', [TallasController::class, 'update'])->name('talla.update');
+Route::post('/talla', [TallasController::class, 'store'])->name('talla.store');
+Route::delete('/talla/{id}', [TallasController::class, 'destroy'])->name('talla.destroy');
+
+Route::put('/color/update/{id}', [ColoresController::class, 'update'])->name('color.update');
+Route::post('/color', [ColoresController::class, 'store'])->name('color.store');
+Route::delete('/color/{id}', [ColoresController::class, 'destroy'])->name('color.destroy');

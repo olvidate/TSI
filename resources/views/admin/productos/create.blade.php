@@ -197,28 +197,37 @@
         padding: .4rem;
         background-color: #a10000;
     }
+
+    strong {
+        margin-top:1rem;
+        width: 50%;
+        background-color: #f8d7da;
+        color: #782736;
+        border: .1rem solid #f6d1d5;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
 </style>
 @endsection
 
 @section('main-content')
     <main>
+        @if($errors->any())
+            <strong>
+                @foreach($errors->all() as $error)
+                    {{$error}}
+                @endforeach
+            </strong>
+        @endif
         <section>
             <h1>🆕 Nuevo producto</h1>
             <hr>
             <form method="POST" enctype="multipart/form-data" action="{{route('productos.store')}}">
                 @method('POST')
                 @csrf
-                @if($errors->any())
-                    <div id="error">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <label for="cod_producto">Código de producto</label>
-                <input type="text" class="border border-gray-300" id="cod_producto" name="cod_producto" placeholder="Ingrese el código de producto" disabled>
+                <input type="text" class="border border-gray-300" id="cod_producto" name="cod_producto" placeholder="Ingrese el código de producto">
 
                 <label for="cod_categoria">Categoria</label>
                 <select id="cod_categoria" name="cod_categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">

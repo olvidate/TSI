@@ -10,7 +10,11 @@ class Talla extends Model
 {
     use HasFactory;
     protected $table = 'tallas';
-    public $timestamps = 'false';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'nombre',
+    ];
 
     public function productos():HasMany {
         return $this->hasMany(Producto::class, 'id');

@@ -43,6 +43,9 @@ class ProductosController extends Controller
         $producto->id_talla = $req->id_talla;
         $producto->id_color = $req->id_color;
         $imagen = $req->file('foto');
+        if($imagen == null) {
+            return back()->withErrors(['foto'=>'No se puede crear un producto sin imagen']);
+        }
         $file_extension = $imagen->getClientOriginalExtension();
         $filename = 'P_' . $producto->cod_producto . '.' . $file_extension;
         Storage::putFileAs(

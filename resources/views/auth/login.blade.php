@@ -107,23 +107,31 @@
             padding: .4rem;
             background-color: #a10000;
         }
+
+        strong {
+            width: 50%;
+            background-color: #f8d7da;
+            color: #782736;
+            border: .1rem solid #f6d1d5;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
     </style>
 @endsection
 
 @section('main-content')
     <main>
         <section>
+            @if($errors->any())
+                <strong>
+                    @foreach($errors->all() as $error)
+                        {{$error}}
+                    @endforeach
+                </strong>
+            @endif
             <h1>🔓 Inicio de sesión</h1>
             <hr>
-            @if($errors->any())
-                <div id="error">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <form method="POST" action="{{route('cliente.login')}}">
                 @method('POST')
                 @csrf

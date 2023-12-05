@@ -195,6 +195,16 @@
             padding: .4rem;
             background-color: #a10000;
         }
+
+        strong {
+            width: 50%;
+            background-color: #f8d7da;
+            color: #782736;
+            border: .1rem solid #f6d1d5;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
     </style>
 
     <script>
@@ -222,20 +232,18 @@
 @section('main-content')
     <main>
         <section>
+            @if($errors->any())
+                <strong>
+                    @foreach($errors->all() as $error)
+                        {{$error}}
+                    @endforeach
+                </strong>
+            @endif
             <h1>🔒 Registrarse</h1>
             <hr>
             <form method="POST" action="{{route('cliente.store')}}">
                 @method('POST')
                 @csrf
-                @if($errors->any())
-                    <div id="error">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{$error}}/li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <label for="email">Correo electrónico</label>
                 <input type="email" id="email" name="email" value="{{old('email')}}" placeholder="Ingrese su correo electrónico" required readonly onfocus="this.removeAttribute('readonly')">
 

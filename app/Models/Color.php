@@ -10,8 +10,11 @@ class Color extends Model
 {
     use HasFactory;
     protected $table = 'colores';
-    public $timestamps = 'false';
+    public $timestamps = false;
 
+    protected $fillable = [
+        'nombre',
+    ];
     public function productos():HasMany {
         return $this->hasMany(Producto::class);
     }

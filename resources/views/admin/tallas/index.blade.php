@@ -196,16 +196,6 @@
             cursor: pointer;
         }
 
-        form > strong {
-            width: 100%;
-            background-color: #f8d7da;
-            color: #782736;
-            border: .1rem solid #f6d1d5;
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
     </style>
 
     <script>
@@ -235,18 +225,18 @@
 @section('main-content')
     <main class="flex-grow p-6">
         <div class="flex justify-between items-center mb-4">
-            <h1 class="text-lg font-medium">Categorias</h1>
-            <a data-modal="crear-categoria"
+            <h1 class="text-lg font-medium">Tallas</h1>
+            <a data-modal="crear-talla"
                class="justify-center font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-2 py-1 bg-green-800 text-white rounded-lg flex items-center space-x-2 text-sm"
                type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="1em" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
-                <span>Crear categoria</span>
+                <span>Crear talla</span>
             </a>
 
-            <div class="modal" id="crear-categoria">
+            <div class="modal" id="crear-talla">
                 <div class="modal-bg modal-exit"></div>
                 <div class="modal-container">
-                    <form action="{{route('categoria.store')}}" method="POST">
+                    <form action="{{route('talla.store')}}" method="POST">
                         @csrf
                         @method('POST')
                         @if($errors->any())
@@ -256,13 +246,9 @@
                                 @endforeach
                             </strong>
                         @endif
-                        <label for="cod_categoria">Codigo</label>
-                        <input type="number" name="cod_categoria" id="cod_categoria">
                         <label for="nombre">Nombre</label>
                         <input type="text" id="nombre" name="nombre">
-                        <label for="tlf">Descripción</label>
-                        <textarea type="text" id="descripcion" name="descripcion"></textarea>
-                        <button type="submit">Crear categoría</button>
+                        <button type="submit">Crear talla</button>
                     </form>
                 </div>
             </div>
@@ -272,13 +258,10 @@
                 <thead class="[&amp;_tr]:border-b">
                 <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                     <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                        Código
+                        #ID
                     </th>
                     <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                         Nombre
-                    </th>
-                    <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                        Descripción
                     </th>
                     <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                         Acciones
@@ -287,20 +270,18 @@
                 </tr>
                 </thead>
                 <tbody class="[&amp;_tr:last-child]:border-0">
-                @foreach($categorias as $categoria)
+                @foreach($tallas as $talla)
                     <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$categoria->cod_categoria}}</td>
-                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$categoria->nombre}}</td>
-                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$categoria->descripcion}}</td>
-
+                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$talla->id}}</td>
+                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{$talla->nombre}}</td>
                         <td class="p-4 flex gap-4 align-middle [&:has([role=checkbox])]:pr-0">
-                            <a href="#" data-modal="modificar-categoria-{{$categoria->cod_categoria}}"
+                            <a href="#" data-modal="modificar-talla-{{$talla->id}}"
                                class="justify-center font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-1 bg-yellow-400 text-white rounded-lg flex items-center space-x-2 text-sm"
                                type="submit">
                                 <svg fill="black" xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/></svg>
                             </a>
 
-                            <form action="{{ route('categoria.destroy', $categoria->cod_categoria) }}" method="POST">
+                            <form action="{{ route('talla.destroy', $talla->id) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <button
@@ -310,10 +291,10 @@
                                 </button>
                             </form>
 
-                            <div class="modal" id="modificar-categoria-{{$categoria->cod_categoria}}">
+                            <div class="modal" id="modificar-talla-{{$talla->id}}">
                                 <div class="modal-bg modal-exit"></div>
                                 <div class="modal-container">
-                                    <form action="{{route('categoria.update', $categoria->cod_categoria)}}" method="POST">
+                                    <form action="{{route('talla.update', $talla->id)}}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         @if($errors->any())
@@ -324,9 +305,7 @@
                                             </strong>
                                         @endif
                                         <label for="nombre">Nombre</label>
-                                        <input type="text" id="nombre" name="nombre" value="{{$categoria->nombre}}">
-                                        <label for="tlf">Descripción</label>
-                                        <textarea type="text" id="descripcion" name="descripcion">{{$categoria->descripcion}}</textarea>
+                                        <input type="text" id="nombre" name="nombre" value="{{$talla->nombre}}">
                                         <button type="submit">Actualizar</button>
                                     </form>
                                 </div>

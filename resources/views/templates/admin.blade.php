@@ -41,6 +41,52 @@
                     </svg>
                     <span class="text-sm font-medium">Productos</span>
                 </a>
+
+                <a href="{{route('admin.categorias.index')}}"
+                   class="w-full flex items-center space-x-2
+                    @if(Route::current()->getName()=='admin.categorias.index')
+                        bg-gray-200 active:bg-gray-300 text-gray-800
+                    @else
+                        hover:bg-gray-200 active:bg-gray-300 text-gray-500
+                    @endif
+                    py-2 px-2 rounded-lg"
+                >
+                    <svg fill="#6b7280" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class=" w-4 h-4">
+                        <path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z"/></svg>
+                    <span class="text-sm font-medium">Categorias</span>
+                </a>
+
+                <a href="{{route('admin.tallas.index')}}"
+                   class="w-full flex items-center space-x-2
+                    @if(Route::current()->getName()=='admin.tallas.index')
+                        bg-gray-200 active:bg-gray-300 text-gray-800
+                    @else
+                        hover:bg-gray-200 active:bg-gray-300 text-gray-500
+                    @endif
+                    py-2 px-2 rounded-lg"
+                >
+                    <svg fill="#6b7280" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class=" w-4 h-4">
+                        <path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z"/></svg>
+                    <span class="text-sm font-medium">Tallas</span>
+                </a>
+
+                <a href="{{route('admin.colores.index')}}"
+                   class="w-full flex items-center space-x-2
+                    @if(Route::current()->getName()=='admin.colores.index')
+                        bg-gray-200 active:bg-gray-300 text-gray-800
+                    @else
+                        hover:bg-gray-200 active:bg-gray-300 text-gray-500
+                    @endif
+                    py-2 px-2 rounded-lg"
+                >
+                    <svg fill="#6b7280" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M512 256c0 .9 0 1.8 0 2.7c-.4 36.5-33.6 61.3-70.1 61.3H344c-26.5 0-48 21.5-48 48c0 3.4 .4 6.7 1 9.9c2.1 10.2 6.5 20 10.8 29.9c6.1 13.8 12.1 27.5 12.1 42c0 31.8-21.6 60.7-53.4 62c-3.5 .1-7 .2-10.6 .2C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm0-96a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 96a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/>
+                    </svg>
+                    <span class="text-sm font-medium">Colores</span>
+                </a>
+
                 <a href="{{route('admin.clientes.index')}}"
                    class="w-full flex items-center space-x-2
                     @if(Route::current()->getName()=='admin.clientes.index')
@@ -78,21 +124,6 @@
                         <path d="M13 11v2"></path>
                     </svg>
                     <span class="text-sm font-medium">Cotizaciones</span>
-                </a>
-
-                <a href="{{route('admin.categorias.index')}}"
-                   class="w-full flex items-center space-x-2
-                    @if(Route::current()->getName()=='admin.categorias.index')
-                        bg-gray-200 active:bg-gray-300 text-gray-800
-                    @else
-                        hover:bg-gray-200 active:bg-gray-300 text-gray-500
-                    @endif
-                    py-2 px-2 rounded-lg"
-                >
-                    <svg fill="#6b7280" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class=" w-4 h-4">
-                        <path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z"/></svg>
-                    <span class="text-sm font-medium">Categorias</span>
                 </a>
             </nav>
         </aside>
