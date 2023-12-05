@@ -22,7 +22,7 @@ class ClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|unique|email:rfc|min:10|max:50',
+            'email' => 'required|email:rfc|min:10|max:50|unique:clientes',
             'password' => 'bail|required|min:6|max:20',
             'rut' => 'required',
         ];

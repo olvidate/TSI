@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        $productos = Producto::all();
+        $productos = Producto::inRandomOrder()->limit(4)->get();
         return view('home.index', compact('productos'));
     }
 

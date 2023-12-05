@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nombre', 20)->nullable();
             $table->string('apellido', 20)->nullable();
             $table->string('direccion', 100)->nullable();
-            $table->unsignedInteger('num_tlf')->nullable();
+            $table->string('num_tlf', 10)->nullable();
             $table->string('nombre_empresa', 50)->nullable();
             $table->string('holding_empresa', 50)->nullable();
             $table->foreign('rol_id')->references('id')->on('roles');

@@ -22,7 +22,6 @@ class ProductosUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cod_producto' => 'required|min:1|max:7',
             'cod_categoria' => 'bail|required|exists:categorias,cod_categoria',
             'nombre' => 'bail|required|min:1|max:100|string',
             'descripcion' => 'bail|required|min:1',

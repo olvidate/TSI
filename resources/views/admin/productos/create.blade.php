@@ -1,17 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src='https://cdn.tailwindcss.com'></script>
-</head>
-<body>
+@extends('templates.admin')
 
+@section('head-extras')
 <style>
-
     * {
         margin: 0;
         padding: 0;
@@ -22,7 +12,7 @@
         background-color: #fff;
         overflow-x: hidden;
         font-family: Inter, sans-serif;
-        font-weight: bold;
+        /*font-weight: bold;*/
     }
 
     main {
@@ -113,7 +103,7 @@
         border-radius: 1rem;
         font-weight: bold;
         font-size: 1rem;
-        background-color: #ada300 !important;
+        background-color: #3f930a !important;
         color: white;
     }
 
@@ -208,57 +198,15 @@
         background-color: #a10000;
     }
 </style>
+@endsection
 
-<div class="flex">
-    <aside class="sticky top-0 h-screen w-56 bg-gray-100 text-gray-800 p-4">
-        <div class="flex items-center mb-4 space-x-1">
-            <a href="{{route('home.index')}}"><h1 class="text-lg font-medium"><span><👷></span> ARAGUN</h1></a>
-        </div>
-        <nav class="space-y-2">
-            <a href="#"
-               class="w-full flex items-center space-x-2 bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class=" w-4 h-4">
-                    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
-                    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
-                    <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
-                </svg>
-                <span class="text-sm font-medium">Productos</span>
-            </a>
-            <a href="#"
-               class="w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class=" w-4 h-4">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="9" cy="7" r="4"></circle>
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-                <span class="text-sm font-medium">Clientes</span></a>
-            <a href="#"
-               class="w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 py-2 px-2 rounded-lg text-gray-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class=" w-4 h-4">
-                    <path
-                        d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
-                    <path d="M13 5v2"></path>
-                    <path d="M13 17v2"></path>
-                    <path d="M13 11v2"></path>
-                </svg>
-                <span class="text-sm font-medium">Cotizaciones</span>
-            </a>
-        </nav>
-    </aside>
-
+@section('main-content')
     <main>
         <section>
-            <h1>✍️ Editar producto</h1>
+            <h1>🆕 Nuevo producto</h1>
             <hr>
-            <form method="POST" enctype="multipart/form-data" action="{{route('productos.update', $producto)}}">
-                @method('PUT')
+            <form method="POST" enctype="multipart/form-data" action="{{route('productos.store')}}">
+                @method('POST')
                 @csrf
                 @if($errors->any())
                     <div id="error">
@@ -270,35 +218,35 @@
                     </div>
                 @endif
                 <label for="cod_producto">Código de producto</label>
-                <input type="text" class="border border-gray-300" id="cod_producto" name="cod_producto" value="{{$producto->cod_producto}}" placeholder="Ingrese el código de producto" required>
+                <input type="text" class="border border-gray-300" id="cod_producto" name="cod_producto" placeholder="Ingrese el código de producto" disabled>
 
                 <label for="cod_categoria">Categoria</label>
                 <select id="cod_categoria" name="cod_categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
                     @foreach($categorias as $categoria)
-                        <option value="{{$categoria->cod_categoria}}" @if($categoria->cod_categoria === $producto->cod_categoria) selected @endif>{{$categoria->nombre}}</option>
+                        <option value="{{$categoria->cod_categoria}}">{{$categoria->nombre}}</option>
                     @endforeach
                 </select>
 
                 <label for="nombre">Nombre del producto</label>
-                <input type="text" class="border border-gray-300" id="nombre" name="nombre" value="{{$producto->nombre}}" placeholder="Ingrese el nombre del producto" required>
+                <input type="text" class="border border-gray-300" id="nombre" name="nombre" placeholder="Ingrese el nombre del producto" required>
 
                 <label for="message">Descripción del producto</label>
-                <textarea id="message" rows="4" name="descripcion" class="block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingresa la descripción del producto">{{$producto->descripcion}}</textarea>
+                <textarea id="message" rows="4" name="descripcion" class="block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingresa la descripción del producto"></textarea>
 
                 <label for="marca">Nombre de la marca</label>
-                <input type="text" class="border border-gray-300" id="marca" name="marca" value="{{$producto->nombre_marca}}" placeholder="Ingrese el nombre de la marca" required>
+                <input type="text" class="border border-gray-300" id="marca" name="marca" placeholder="Ingrese el nombre de la marca" required>
 
                 <label for="id_talla">Talla del producto</label>
                 <select id="id_talla" name="id_talla" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
                     @foreach($tallas as $talla)
-                        <option value="{{$talla->id}}" @if($talla->id === $producto->id_talla) selected @endif>{{$talla->nombre}}</option>
+                        <option value="{{$talla->id}}">{{$talla->nombre}}</option>
                     @endforeach
                 </select>
 
                 <label for="id_color">Color del producto</label>
                 <select id="id_color" name="id_color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
                     @foreach($colores as $color)
-                        <option value="{{$color->id}}" @if($color->id === $producto->id_color) selected @endif>{{$color->nombre}}</option>
+                        <option value="{{$color->id}}">{{$color->nombre}}</option>
                     @endforeach
                 </select>
 
@@ -307,12 +255,10 @@
                 <input class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input" name="foto" type="file">
 
                 <!-- Button -->
-                <button type="submit">Editar producto</button>
+                <button type="submit">Crear producto</button>
 
             </form>
-            <a href="{{route('productos.index')}}">o regresar a la página anterior</a>
+            <a href="{{route('admin.productos.index')}}">o regresar a la página anterior</a>
         </section>
     </main>
-</div>
-</body>
-</html>
+@endsection

@@ -1,7 +1,21 @@
-@extends('templates.master')
+@extends('templates.admin')
 
 @section('head-extras')
     <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fff;
+            overflow-x: hidden;
+            font-family: Inter, sans-serif;
+            /*font-weight: bold;*/
+        }
+
         main {
             width: 100%;
             height: calc(100vh - 9vh);
@@ -32,10 +46,10 @@
 
         form {
             width: 100%;
-            height: 100%;
-            @media (height > 700px) {
-                height: 50%;
-            }
+            height: fit-content;
+            /*@media (height > 700px) {*/
+            /*    height: 90%;*/
+            /*}*/
             display: flex;
             align-items: center;
             justify-content: center;
@@ -53,15 +67,25 @@
 
         form > input {
             width: 80%;
-            height: 50px;
             border: .1rem solid rgb(0, 0, 0);
             border-radius: .4rem;
-            padding: 0 .5rem;
+            padding: .6rem;
+            font-weight: normal !important;
+        }
+
+        form > select {
+            width: 80%;
+            font-weight: normal !important;
+        }
+
+        form > textarea {
+            width: 80%;
+            font-weight: normal !important;
         }
 
         hr {
             width: 80%;
-            height: .5%;
+            height: .5vh;
             background-color: #383838;
             border: 0;
             border-radius: 10px;
@@ -70,7 +94,6 @@
         ::placeholder {
             font-size: .9rem;
             color: black;
-
         }
 
         button {
@@ -81,7 +104,7 @@
             border-radius: 1rem;
             font-weight: bold;
             font-size: 1rem;
-            background-color: #3f930a;
+            background-color: #ada300 !important;
             color: white;
         }
 
@@ -160,24 +183,6 @@
             margin-inline-start: calc(1.125em - 4px);
         }
 
-        form > div {
-            width: 100%;
-            height: 30%;
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            flex-direction: column;
-            gap: .5rem;
-        }
-
-        form > div input {
-            width: 80%;
-            height: 50px;
-            border: .1rem solid rgb(0, 0, 0);
-            border-radius: .4rem;
-            padding: 0 .5rem;
-        }
-
         .disable {
             display: none !important;
         }
@@ -194,76 +199,67 @@
             background-color: #a10000;
         }
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const formSwitch = document.getElementById('switch');
-            const personData = document.getElementById('datos-persona');
-            const enterpriseData = document.getElementById('datos-empresa');
-            const rutLabel = document.getElementById('labelRut');
-
-            formSwitch.addEventListener('change', function () {
-                if (formSwitch.checked) {
-                    personData.classList.add('disable');
-                    enterpriseData.classList.remove('disable');
-                    rutLabel.innerText = 'R.U.T Empresa (11223344-K)';
-                } else {
-                    rutLabel.innerText = 'R.U.T Persona (11223344-K)';
-                    personData.classList.remove('disable');
-                    enterpriseData.classList.add('disable');
-                }
-            });
-        });
-    </script>
 @endsection
 
 @section('main-content')
     <main>
         <section>
-            <h1>🔒 Registrarse</h1>
+            <h1>✍️ Editar producto</h1>
             <hr>
-            <form method="POST" action="{{route('cliente.store')}}">
-                @method('POST')
+            <form method="POST" enctype="multipart/form-data" action="{{route('productos.update', $producto)}}">
+                @method('PUT')
                 @csrf
                 @if($errors->any())
                     <div id="error">
                         <ul>
                             @foreach($errors->all() as $error)
-                                <li>{{$error}}/li>
+                                <li>{{$error}}</li>
                             @endforeach
                         </ul>
                     </div>
                 @endif
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" value="{{old('email')}}" placeholder="Ingrese su correo electrónico" required readonly onfocus="this.removeAttribute('readonly')">
+                <label for="cod_producto">Código de producto</label>
+                <input type="text" class="border border-gray-300" id="cod_producto" name="cod_producto" value="{{$producto->cod_producto}}" placeholder="Ingrese el código de producto" disabled>
 
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required readonly onfocus="this.removeAttribute('readonly')">
+                <label for="cod_categoria">Categoria</label>
+                <select id="cod_categoria" name="cod_categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    @foreach($categorias as $categoria)
+                        <option value="{{$categoria->cod_categoria}}" @if($categoria->cod_categoria === $producto->cod_categoria) selected @endif>{{$categoria->nombre}}</option>
+                    @endforeach
+                </select>
 
-                <label for="rut" id="labelRut">R.U.T Persona (11223344-K)</label>
-                <input type="text" id="rut" name="rut" value="{{old('rut')}}" placeholder="Ingrese su R.U.T" required >
+                <label for="nombre">Nombre del producto</label>
+                <input type="text" class="border border-gray-300" id="nombre" name="nombre" value="{{$producto->nombre}}" placeholder="Ingrese el nombre del producto" required>
 
-                <label for="switch"><input type="checkbox" id="switch" name="switch" role="switch">Soy empresa</label>
-                <div id="datos-persona">
-                    <label for="firstname">Nombre</label>
-                    <input type="text" id="firstname" name="firstname" value="{{old('firstname')}}" placeholder="Ingrese su nombre">
+                <label for="message">Descripción del producto</label>
+                <textarea id="message" rows="4" name="descripcion" class="block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingresa la descripción del producto">{{$producto->descripcion}}</textarea>
 
-                    <label for="lastname">Apellido</label>
-                    <input type="text" id="lastname" name="lastname" value="{{old('lastname')}}" placeholder="Ingrese su apellido">
-                </div>
+                <label for="marca">Nombre de la marca</label>
+                <input type="text" class="border border-gray-300" id="marca" name="marca" value="{{$producto->nombre_marca}}" placeholder="Ingrese el nombre de la marca" required>
 
-                <div id="datos-empresa" class="disable">
-                    <label for="nombre_empresa">Nombre Empresa</label>
-                    <input type="text" id="nombre_empresa" name="nombre_empresa" placeholder="Ingrese el nombre de la empresa">
+                <label for="id_talla">Talla del producto</label>
+                <select id="id_talla" name="id_talla" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    @foreach($tallas as $talla)
+                        <option value="{{$talla->id}}" @if($talla->id === $producto->id_talla) selected @endif>{{$talla->nombre}}</option>
+                    @endforeach
+                </select>
 
-                    <label for="holding_empresa">Holding Empresa</label>
-                    <input type="text" id="holding_empresa" name="holding_empresa" placeholder="Ingrese el holding de la empresa">
-                </div>
+                <label for="id_color">Color del producto</label>
+                <select id="id_color" name="id_color" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    @foreach($colores as $color)
+                        <option value="{{$color->id}}" @if($color->id === $producto->id_color) selected @endif>{{$color->nombre}}</option>
+                    @endforeach
+                </select>
+
+
+                <label for="file_input">Imagen del producto</label>
+                <input class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="file_input" name="foto" type="file">
+
                 <!-- Button -->
-                <button type="submit">Registrarse</button>
+                <button type="submit">Editar producto</button>
 
             </form>
-            <a href="{{route('home.login')}}">Tienes cuenta? <span>Inicia sesión🔑🔓</span></a>
+            <a href="{{route('admin.productos.index')}}">o regresar a la página anterior</a>
         </section>
     </main>
 @endsection

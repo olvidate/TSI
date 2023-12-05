@@ -16,8 +16,6 @@ class ClienteController extends Controller
         $this->middleware('auth')->except(['login', 'logout', 'store']);
     }
 
-    public function index() {}
-
     public function login(Request $req) {
         $email = $req->email;
         $password = $req->password;
@@ -64,17 +62,17 @@ class ClienteController extends Controller
             $cliente->holding_empresa = $req->holding;
         } elseif ($req->switch == null) {
 
-            if(strlen($cliente->firstname) < 10) {
+            if(strlen($req->firstname) < 4) {
                 return back()->withErrors([
-                    'firstname' => 'Mínimo 10 caracteres para el nombre',
+                    'firstname' => 'Mínimo 4 caracteres para el nombre',
                 ]);
             }
 
             $cliente->nombre = $req->firstname;
 
-            if(strlen($cliente->lastname) < 10) {
+            if(strlen($req->lastname) < 4) {
                 return back()->withErrors([
-                    'firstname' => 'Mínimo 10 caracteres para el apellido',
+                    'firstname' => 'Mínimo 4 caracteres para el apellido',
                 ]);
             }
 

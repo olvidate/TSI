@@ -23,42 +23,15 @@
         .product-card {
             display: flex;
             flex-direction: column;
-            padding: 2%;
-            background-color: #d1d1e9;
+            padding: 1rem;
+            background-color: white;
             /*border: 1px rgba(0,0,0,0.5) solid;*/
-            border-radius: 3px;
+            border-radius: 1rem;
             margin-bottom: 20px;
             position: relative;
             max-width: 300px;
-            max-height: 400px;
-        }
-
-        .product-card .cart-icon {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            width: fit-content;
-            padding: 0 .5rem;
-            height: 5%;
-            color: white;
-            background-color: #3f930a;
-            position: absolute;
-            z-index: 1;
-        }
-
-        .product-card .cart-icon a {
-            font-size: 1rem;
-            color: white;
-        }
-
-        .product-card:hover {
-            .cart-icon {
-                display: flex;
-            }
-        }
-
-        .product-card .cart-icon:hover {
-            cursor: pointer;
+            max-height: 450px;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, .2);
         }
 
         .product-image img {
@@ -75,14 +48,16 @@
         }
 
         .product-info > h5 {
-            padding: .4rem;
+            padding: 1rem;
             font-size: 1rem;
             color: #2b2c34;
         }
 
         .product-info > h5 > a {
-            text-decoration: underline;
-            color: #2b2c34;
+            color: white;
+            background-color: black;
+            padding: .5rem;
+            border-radius: 1rem;
         }
 
         img {
@@ -110,6 +85,22 @@
             width: 75%;
             text-align: center;
             word-break: break-word;
+        }
+
+        header div > div {
+            margin-top: 1rem;
+        }
+
+        header div > div a {
+            font-size: 1.5rem;
+            background-color: #0094e8;
+            color: white;
+            padding: .5rem;
+            border-radius: 1rem;
+        }
+
+        header div > div a:hover {
+            background-color: #00507e;
         }
 
         header h1 {
@@ -150,7 +141,7 @@
         }
 
         section {
-            background-color: #2b2c34;
+            background-color: #eee;
         }
 
         main {
@@ -159,29 +150,80 @@
             flex-direction: column;
         }
 
+        .product-info-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .product-info-grid a {
+            background-color: #2d3748;
+            color: white;
+            padding: .2rem;
+            border-radius: 1rem;
+        }
+
+        .product-info-grid button {
+            background-color: #3f930a;
+            color: white;
+            padding: .2rem;
+            border-radius: 1rem;
+        }
+
+        .product-footer {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            background-color: white;
+            padding: 0 2rem;
+        }
+
+        .product-footer a {
+            background-color: #eee;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, .2);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 10%;
+            font-size: 2rem;
+            margin-bottom: 10%;
+        }
+
+        .product-footer a:hover {
+            color: #0094e8;
+        }
+
         main > section > h1 {
             padding: 5% 0 0 0;
-            color: white;
+            color: black;
             text-align: center;
         }
 
 
         main > section .products-grid {
-            padding: 5% 10% 10% 10%;
+            padding: 5% 10% 5% 10%;
+        }
+
+        button {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
         }
     </style>
-
 @endsection
 
 @section('main-content')
-{{--    @if(!empty(Auth::user()->rut_cliente))--}}
-{{--        Usuario logueado!--}}
-{{--    @endif--}}
-
     <header>
         <div>
             <h1>👷<br>ARAGUN LTDA</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam culpa doloremque ducimus facere illo laudantium minus natus nostrum placeat quaerat quas reiciendis reprehenderit ullam, vel voluptas voluptate voluptates voluptatibus.</p>
+            <div>
+                <a href="{{route('productos.index')}}">Nuestros productos</a>
+            </div>
         </div>
 
         <div class="card">
@@ -191,15 +233,10 @@
 
     <main>
         <section>
-            <h1>Nuestros Productos</h1>
+            <h1>Algunos de nuestros productos</h1>
             <div class="products-grid">
                 @foreach($productos as $producto)
                     <div class="product-card">
-
-                        <div class="cart-icon">
-                            <a href="#">🛒 Añadir al carrito de cotización</a>
-                        </div>
-
                         <div class="product-image">
                             @if (file_exists(public_path('imagenes/P_' . $producto->cod_producto . '.png')))
                                 <img src="{{asset('imagenes/P_' . $producto->cod_producto . '.png')}}">
@@ -213,10 +250,21 @@
                         </div>
                         <div class="product-info">
                             <h5>{{$producto->nombre}}</h5>
-                            <h5><a href="#">Acerca del producto</a></h5>
+                            <div class="product-info-grid">
+                                <a href="#">Acerca del producto</a>
+                                <form action="{{route('cart.add')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$producto->cod_producto}}">
+                                    <button type="submit" name="btn">Añadir al carro</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @endforeach
+            </div>
+
+            <div class="product-footer">
+                <a href="{{route('productos.index')}}">Presiona para ver más productos</a>
             </div>
         <section>
     </main>

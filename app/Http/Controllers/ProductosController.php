@@ -15,26 +15,21 @@ use Illuminate\Support\Facades\Storage;
 class ProductosController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'category']);
     }
 
     public function index() {
-        if(Gate::denies('admin')) {
-            return redirect()->route('home.index');
-        }
-
         $productos = Producto::all();
-        return view('productos.index', compact('productos'));
+        $categorias = Categoria::all();
+        return view('productos.index', compact(['productos', 'categorias']));
     }
 
-    public function create() {
-        if(Gate::denies('admin')) {
-            return redirect()->route('home.index');
-        }
+    public function category($id) {
         $categorias = Categoria::all();
-        $tallas = Talla::all();
-        $colores = Color::all();
-        return view('productos.create', compact(['categorias', 'tallas', 'colores']));
+        $categoria = $categorias->find($id);
+        $productos = $categoria->productos;
+
+        return view('productos.index', compact(['productos', 'categorias']));
     }
 
     public function store(ProductosRequest $req) {
@@ -57,24 +52,14 @@ class ProductosController extends Controller
         );
         Storage::setVisibility($filename, 'public');
         $producto->save();
-        return redirect()->route('productos.index');
+        return redirect()->route('admin.productos.index');
     }
 
     public function destroy($producto) {
         if(Gate::allows('admin')) {
             $producto = Producto::find($producto);
             $producto->delete();
-            return redirect()->route('productos.index');
-        }
-    }
-
-    public function edit(Producto $producto) {
-
-        if(Gate::allows('admin')) {
-            $categorias = Categoria::all();
-            $tallas = Talla::all();
-            $colores = Color::all();
-            return view('productos.edit', compact(['producto','categorias', 'tallas', 'colores']));
+            return redirect()->route('admin.productos.index');
         }
     }
 
@@ -102,7 +87,6 @@ class ProductosController extends Controller
                 Storage::move('imagenes/P_' . $producto->cod_producto . '.png', 'imagenes/P_' . $req->cod_producto . '.jpg');
             }
         }
-        $producto->cod_producto = $req->cod_producto;
         $producto->cod_categoria = $req->cod_categoria;
         $producto->nombre = $req->nombre;
         $producto->descripcion = $req->descripcion;
@@ -111,6 +95,6 @@ class ProductosController extends Controller
         $producto->id_talla = $req->id_talla;
         $producto->id_color = $req->id_color;
         $producto->save();
-        return redirect()->route('productos.index');
+        return redirect()->route('admin.productos.index');
     }
 }
